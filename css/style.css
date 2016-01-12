@@ -1,0 +1,27 @@
+@charset "UTF-8";
+*{
+	font-family: "微软雅黑","Times New Roman",Georgia,Serif;
+}
+.ml10{
+	margin-left:10px;
+}
+.mr10{
+	margin-right:10px;
+}
+.login_txt{
+	width:75px;
+}
+.login_input{
+	width: 210px !important;
+}
+.auto{
+	margin:0 auto;
+}
+.mt10{
+	margin-top:10px;
+}
+.modal-content {
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+}
