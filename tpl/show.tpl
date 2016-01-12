@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="./css/style.css">
+<<<<<<< Updated upstream
 
 <script src="./js/jquery.js"></script>
 <script src="./js/bootstrap.js"></script>
@@ -19,6 +20,20 @@ $(document).ready(function(){
 });
 </script>
 {/literal} 
+=======
+<link href="./css/datetimepicker.css" rel="stylesheet">
+<script src="./js/jquery.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/bootstrap-datetimepicker.min.js"></script>
+<script  type="text/javascript" src="./js/datepicker_language/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+{literal}
+<script>
+$(document).ready(function(){
+	$(".datepicker").datetimepicker({format:'yyyy-mm-dd',weekStart:1,todayBtn:1,autoclose:1,todayHighlight:1,startView:2,forceParse:0,showMeridian:1,minView:2,language:'zh-CN'});
+});
+</script>
+{/literal}
+>>>>>>> Stashed changes
 </head>
 
 <body>
@@ -53,10 +68,13 @@ $(document).ready(function(){
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li><a>欢迎你：{$u_name}</a></li>
 	        <li style="border-left:1px solid #eee;border-right:1px solid #eee;" class="hover_bg"><a href="/show.php?logout">退出</a></li>
-	        
+	        <li>
+	        	<input size="16" type="text" readonly class="datepicker">
+	        </li>
 	      </ul>
 	    		</div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container-fluid -->
+   
 	</nav>
   </div>
 </div>
