@@ -45,7 +45,8 @@ $(document).ready(function(){
 	        <button type="submit" class="btn btn-default">Submit</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#">退出</a></li>
+	      	<li><a>欢迎你：{$u_name}</a></li>
+	        <li style="border-left:1px solid #eee;border-right:1px solid #eee;" class="hover_bg"><a href="/show.php?logout">退出</a></li>
 	        
 	      </ul>
 	    		</div><!-- /.navbar-collapse -->

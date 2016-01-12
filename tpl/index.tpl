@@ -23,7 +23,7 @@ function login_ok(){
         url:"index.php",
         data:msg,
         success:function(data){
-          if(data=="ok"){
+          if(data=="go"){
             window.location="/show.php";
           }else{     
             $('#myModal').modal('show');
@@ -46,7 +46,7 @@ function login_ok(){
 <div class="container-fluid">
   <div class="row">
     <nav class="navbar navbar-default">
-  		<div style="line-height:50px;font-size:21px;" class="ml10">欢迎使用安藤广告排期系统</div>
+  		<div style="line-height:50px;font-size:21px;" class="ml10">ANTO-广告排期系统</div>
     </nav>
   </div>
   <div class="row" style="margin-top:200px;" id="login_box">
