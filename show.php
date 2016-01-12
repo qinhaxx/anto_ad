@@ -14,6 +14,7 @@
 	if(isset($_GET['logout'])){
 		echo "<script>window.location='index.php';</script>";
 		session_destroy();
+		return false;
 	}
 
 	$smarty->assign("u_name",$u_name);
