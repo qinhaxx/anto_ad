@@ -28,3 +28,9 @@
 .hover_bg:hover{
 	background-image: linear-gradient(to bottom,#dbdbdb 0,#e2e2e2 100%);
 }
+.form-horizontal .control-label {
+    padding-top: 2px;
+}
+.new_project_txt{
+	width: 58% !important;
+}
