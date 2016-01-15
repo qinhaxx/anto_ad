@@ -90,7 +90,7 @@ function change_pwd(){
 					<ul class="nav navbar-nav">
 						<!--任务添加-->
 						<li class="ml10 pointer hover_bg" data-toggle="modal" data-target=".bs-example-modal-lg2">
-							<a>新增任务</a>
+							<a>添加广告</a>
 						</li>
 						<!--/任务添加-->
 						<!--站点选择-->
@@ -136,6 +136,47 @@ function change_pwd(){
 				</div>
 				<!-- /.navbar-collapse -->
 			</nav>
+			<table class="table table-bordered table-striped table-condensed" style="width:94%;margin:40px 0 40px 40px;">
+					<tr class="info">
+						<td>广告名称</td>
+						<td>开始时间</td>
+						<td>结束时间</td>
+						<td>详情描述</td>
+						<td>备注其他</td>
+					</tr>
+					<tr>
+						<td>yahoo gtx</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>yahoo gtx</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr><tr>
+						<td>yahoo gtx</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr><tr>
+						<td>yahoo gtx</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr><tr>
+						<td>yahoo gtx</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
 		</div>
 		<!-- /.container-fluid -->
 	</div>
@@ -422,13 +463,13 @@ function change_pwd(){
 				<div id="change_pwd" class="auto" style="width:370px;margin-bottom:30px;">
 					<div class="input-group mt10">
 						<span class="input-group-addon">原 &nbsp;密 &nbsp;码&nbsp;</span>
-						<input name="old_pwd" type="text" class="form-control" placeholder="Old Password" aria-describedby="basic-addon1"></div>
+						<input name="old_pwd" type="password" class="form-control" placeholder="Old Password" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon">新 &nbsp;密 &nbsp;码&nbsp;</span>
-						<input name="new_pwd" type="text" class="form-control" placeholder="New Password" aria-describedby="basic-addon1"></div>
+						<input name="new_pwd" type="password" class="form-control" placeholder="New Password" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon">确认密码&nbsp;</span>
-						<input name="re_pwd" type="text" class="form-control" placeholder="Repeat Password" aria-describedby="basic-addon1"></div>
+						<input name="re_pwd" type="password" class="form-control" placeholder="Repeat Password" aria-describedby="basic-addon1"></div>
 					<div style="margin-top:30px;">
 						<a class="btn btn-danger" href="#" role="button" onclick="change_pwd()">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;改&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
