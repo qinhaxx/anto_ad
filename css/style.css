@@ -1,6 +1,9 @@
 @charset "UTF-8";
 *{
-	font-family: "微软雅黑","Times New Roman",Georgia,Serif;
+	font-family: "微软雅黑";
+}
+td{
+	font-size: 12px;
 }
 .ml10{
 	margin-left:10px;
@@ -20,6 +23,9 @@
 .mt10{
 	margin-top:10px;
 }
+.mt20{
+	margin-top:20px;
+}
 .modal-content {
     padding: 20px;
     text-align: center;
@@ -33,4 +39,21 @@
 }
 .new_project_txt{
 	width: 58% !important;
+}
+.page-header {
+    padding-bottom: 9px;
+    margin: 20px 0 20px;
+    border-bottom: 1px solid #eee;
+}
+.datetimepicker{
+	z-index: 10000 !important;
+}
+.pointer{
+	cursor: pointer;
+}
+.divider {
+    height: 1px;
+    margin: 4px 0 !important;
+    overflow: hidden;
+    background-color: #e5e5e5;
 }

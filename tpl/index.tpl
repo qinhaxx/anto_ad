@@ -12,8 +12,12 @@
 {literal}
 <script>
 $(document).ready(function(){
-
-	
+  $(document).keypress(function(e) {  
+    // 回车键事件  
+       if(e.which == 13) {  
+        login_ok(); 
+       }  
+  });
 });
 function login_ok(){
 	var msg = $("#login_box input").serialize();
@@ -61,19 +65,19 @@ function login_ok(){
 		  <input name="u_pwd" type="password" class="form-control login_input" placeholder="Password" aria-describedby="sizing-addon1">
 		</div>		    
 	  </div>
-		 <div class=" btn btn-default mt10 btn-info" style="width:100%;border-top-left-radius:0;border-top-right-radius:0;border:none;font-size:18px;" onclick="login_ok()">登&nbsp;&nbsp;&nbsp;录</div>
+		 <div class="btn mt10 btn-info" style="width:100%;border-top-left-radius:0;border-top-right-radius:0;border:none;font-size:20px;" onclick="login_ok()">登&nbsp;&nbsp;&nbsp;录</div>
 	</div>
   </div>
   <div class="row">
     <nav class="navbar navbar-default navbar-fixed-bottom" style="background:#eee;">
-  		<div style="line-height:50px;font-size:12px;" class="mr10 pull-right">Powered by ycmbcd & pd</div>
+  		<div style="line-height:50px;font-size:14px;" class="mr10 pull-right">Powered by ycmbcd & pd</div>
     </nav>
   </div>
 </div>
 
 <!-- Small modal -->
 
-<div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       用户名 / 密码输入错误！

@@ -18,7 +18,6 @@ if(isset($_POST['u_name'])){
 		$_SESSION['u_name'] = $u_name;
 		echo "go";
 		return false;
-		//写入日志！！！
 	}
 }
 //展示
