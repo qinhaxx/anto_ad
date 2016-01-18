@@ -10,11 +10,38 @@
 		$smarty->assign("u_name",$u_name);
 	}
 	$smarty->assign("u_name",$u_name);
+	$db = new DB();
 
 //退出系统
 	if(isset($_GET['logout'])){
 		echo "<script>window.location='index.php';</script>";
 		session_destroy();
+		return false;
+	}
+
+//查询站点
+	$sql = "select * from ad_store;";
+	$res = $db->execute($sql);
+	$smarty->assign("resu_store",$res);
+
+//新建站点
+	if(isset($_POST['new_site'])){
+		$new_site = $_POST['new_site'];
+		//由于没必要，此处不作验证
+		//插入数据
+		$sql = "insert into ad_store(ad_site) values('{$new_site}');";
+		$res = $db->execute($sql);
+		echo "ok";
+		return false;
+	}
+
+//删除站点
+	if(isset($_POST['remove_site'])){
+		$remove_site = $_POST['remove_site'];
+		//删除数据
+		$sql = "delete from ad_store where ad_site='{$remove_site}';";
+		$res = $db->execute($sql);
+		echo "ok";
 		return false;
 	}
 
@@ -37,7 +64,6 @@
 		}
 		
 		//查询user数据库
-		$db = new DB();
 		$sql = "select u_pwd from user where u_name='{$u_name}';";
 		$res = $db->execute($sql);
 		foreach ($res as $key => $value) {

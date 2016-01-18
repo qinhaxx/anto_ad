@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>ANTO-广告排期系统</title>
+	<title>ANTO - 广告排期系统</title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="./css/style.css">
@@ -18,6 +18,8 @@ $(document).ready(function(){
 	site_select()
 	$(".datepicker").datetimepicker({format:'yyyy-mm-dd',weekStart:1,todayBtn:1,autoclose:1,startView:2,forceParse:0,showMeridian:1,minView:2,language:'zh-CN'});
 });
+
+//选择赋值
 function site_select(){
 	$("#site_select a").each(function(){
 		$(this).click(function(){
@@ -26,6 +28,53 @@ function site_select(){
 		})
 	})
 }
+
+//新建站点
+function add_site(){
+	var new_site = $("#new_site").val();
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"new_site="+new_site,
+        success:function(data){
+			if(data=="ok"){
+				$('#error_info').text('新建成功！');
+				$('#errorModal').modal('show');
+			    setTimeout(function(){
+			    	$('#errorModal').modal('hide');
+			    },2000)
+			    $('#pwd_modal').modal('hide');
+			}
+        },
+        error: function(){
+            //请求出错处理
+            alert("Error!");
+        }
+    })
+}
+//删除站点
+function remove_site(e){
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"remove_site="+e,
+        success:function(data){
+			if(data=="ok"){
+				$('#error_info').text('删除成功！');
+				$('#errorModal').modal('show');
+			    setTimeout(function(){
+			    	$('#errorModal').modal('hide');
+			    },2000)
+			    $('#pwd_modal').modal('hide');
+			}
+        },
+        error: function(){
+            //请求出错处理
+            alert("Error!");
+        }
+    })
+}
+//修改密码
 function change_pwd(){
 	var input_info = $("#change_pwd input").serialize();
 
@@ -83,7 +132,7 @@ function change_pwd(){
 			<nav class="navbar navbar-default">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">ANTO-广告排期系统</a>
+					<a class="navbar-brand" href="#">ANTO - 广告排期系统</a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -191,9 +240,9 @@ function change_pwd(){
 					<small>站点管理</small>
 				</div>
 				<div class="input-group pull-right" style="width:240px;margin-right:10px;">
-					<input type="text" class="form-control" placeholder="添加站点" >
+					<input id="new_site" type="text" class="form-control" placeholder="添加站点" >
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">添 加</button>
+						<button class="btn btn-default" onclick="add_site()" type="button">添 加</button>
 					</span>
 				</div>
 				<div class="clearfix"></div>
@@ -202,210 +251,14 @@ function change_pwd(){
 						<td>店名</td>
 						<td>操作</td>
 					</tr>
+					{foreach $resu_store|default:'-' as $se}
 					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
+						<td>{$se.ad_site|default:'-'}</td>
+						<td>
+							<a class="btn btn-xs btn-danger" onclick="remove_site('{$se.ad_site}')">删 除</a>
 						</td>
 					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td class="">
-							<a class="btn btn-xs btn-danger">删 除</a>
-						</td>
-					</tr>
+					{/foreach}
 				</table>
 			</div>
 		</div>
@@ -434,6 +287,12 @@ function change_pwd(){
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">结束时间</span>
 						<input type="text" readonly class="form-control datepicker" placeholder="End Time" aria-describedby="basic-addon1"></div>
+					<div class="input-group mt10">
+						<span class="input-group-addon" id="basic-addon1">产品链接</span>
+						<input type="text" class="form-control" placeholder="Product URL" aria-describedby="basic-addon1"></div>
+					<div class="input-group mt10">
+						<span class="input-group-addon" id="basic-addon1">图片链接</span>
+						<input type="text" class="form-control" placeholder="Picture URL" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">详情描述</span>
 						<input type="text" class="form-control" placeholder="To Describe" aria-describedby="basic-addon1"></div>
