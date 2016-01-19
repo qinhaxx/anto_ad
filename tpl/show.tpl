@@ -56,11 +56,24 @@ function show_list(e){
 			$("#list_table").empty();
 			var html = "";
 			$.each(data,function(index,json){
-				html += '<tr"><td>'+json.site_name+'</td><td>'+json.ad_name+'</td><td>'+json.start_time+'</td><td class="end_time">'+json.end_time+'</td><td>'+json.url+'</td><td>'+json.pic+'</td><td>'+json.desc_info+'</td><td>'+json.others+'</td><td><a class="btn btn-xs btn-primary" onclick="change_ad(\''+json.id+'\')">修 改</a> &nbsp;<a class="btn btn-xs btn-danger" onclick="remove_ad(\''+json.id+'\')">删 除</a></td></tr>';
+				html += '<tr class="my_hover"><td>'+json.site_name+'</td><td>'+json.ad_name+'</td><td>'+json.start_time+'</td><td class="end_time">'+json.end_time+'</td><td>'+json.url+'</td><td>'+json.pic+'</td><td>'+json.desc_info+'</td><td>'+json.others+'</td><td><a class="btn btn-xs btn-primary" onclick="change_ad(\''+json.id+'\')">修 改</a> &nbsp;<a class="btn btn-xs btn-danger" onclick="remove_ad(\''+json.id+'\')">删 除</a></td></tr>';
 			})
-			html = '<tr class="info"><td>站点名称</td><td>广告名称</td><td>开始时间</td><td>结束时间</td><td>产品链接</td><td>图片链接</td><td>详情描述</td><td>备注其他</td><td>操作</td></tr>'+html;
+			html = '<tr class="my_bar"><td>站点名称</td><td>广告名称</td><td>开始时间</td><td>结束时间</td><td>产品链接</td><td>图片链接</td><td>详情描述</td><td>备注其他</td><td>操作</td></tr>'+html;
 			$("#list_table").html(html);
 			day_warning();
+			all_count(e);
+		}
+    })
+}
+
+//总数统计
+function all_count(e){
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"all_count="+e,
+        success:function(data){
+			$('#all_count').text(data);
 		}
     })
 }
@@ -68,7 +81,10 @@ function show_list(e){
 //添加广告
 function add_ad(){
 	var add_info = $("#add_box input").serialize();
-	var add_site_name = $("#add_site_name").val();
+	var site_select_txt = $("#site_select_txt").text();
+	if(site_select_txt=="选择站点" || site_select_txt=="全部站点"){
+		site_select_txt=1;
+	}
 	$.ajax({
         type:"POST",
         url:"show.php",
@@ -81,7 +97,30 @@ function add_ad(){
 			    	$('#errorModal').modal('hide');
 			    },2000)
 			    $('.bs-example-modal-lg2').modal('hide');
-			    show_list(add_site_name)
+			    show_list(site_select_txt)
+			}
+		}
+    })
+}
+
+//删除广告
+function remove_ad(e){
+	var site_select_txt = $("#site_select_txt").text();
+	if(site_select_txt=="选择站点" || site_select_txt=="全部站点"){
+		site_select_txt=1;
+	}
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"remove_ad="+e,
+        success:function(data){
+			if(data=="ok"){
+				$('#error_info').text('广告删除成功！');
+				$('#errorModal').modal('show');
+			    setTimeout(function(){
+			    	$('#errorModal').modal('hide');
+			    },2000)
+			    show_list(site_select_txt)
 			}
 		}
     })
@@ -257,6 +296,9 @@ function change_pwd(){
 							</ul>
 						</li>
 						<!--/站点选择-->
+						<li class="pointer">
+							<a>共计：<span id="all_count"></span></a>
+						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<!--检索-->

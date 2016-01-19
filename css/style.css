@@ -67,3 +67,10 @@ td{
 	border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0;
 }
+.my_bar{
+	color: #FFF;
+	background: #C35C5C !important;
+}
+.my_hover:hover{
+	background: rgb(217,237,247) !important;
+}

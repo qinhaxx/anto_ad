@@ -25,14 +25,29 @@
 		if($now_site == 1){ //全部站点
 			$sql = "select * from ad_table order by end_time;";
 		}else{
-			$sql = "select * from ad_table where site_name='{$now_site}';";
+			$sql = "select * from ad_table where site_name='{$now_site}' order by end_time;";
 		}
 		$res = $db->execute($sql);
 		echo json_encode($res);
 		return false;
 	}
 
-//新建广告位
+//总数统计
+	if(isset($_POST['all_count'])){
+		$all_count = $_POST['all_count'];
+		if($all_count == 1){ //全部站点
+			$sql = "select count(1) as count from ad_table;";
+		}else{
+			$sql = "select count(1) as count from ad_table where site_name='{$all_count}';";
+		}
+		$res = $db->execute($sql);
+		foreach ($res as $value);
+		foreach ($value as $value);
+		echo $value;
+		return false;
+	}
+
+//添加广告
 	if(isset($_POST['ad_name'])){
 		$site_name = $_POST['site_name'];
 		$ad_name = $_POST['ad_name'];
@@ -43,6 +58,15 @@
 		$desc = $_POST['desc'];
 		$others = $_POST['others'];
 		$sql = "insert into ad_table(site_name,ad_name,start_time,end_time,url,pic,desc_info,others)values('{$site_name}','{$ad_name}','{$start_time}','{$end_time}','{$url}','{$pic}','{$desc}','{$others}');";
+		$res = $db->execute($sql);
+		echo "ok";
+		return false;
+	}
+
+//删除广告
+	if(isset($_POST['remove_ad'])){
+		$remove_ad = $_POST['remove_ad'];
+		$sql = "delete from ad_table where id='{$remove_ad}';";
 		$res = $db->execute($sql);
 		echo "ok";
 		return false;
