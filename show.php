@@ -23,7 +23,7 @@
 	if(isset($_POST['show_list'])){
 		$now_site = $_POST['show_list'];
 		if($now_site == 1){ //全部站点
-			$sql = "select * from ad_table;";
+			$sql = "select * from ad_table order by end_time;";
 		}else{
 			$sql = "select * from ad_table where site_name='{$now_site}';";
 		}

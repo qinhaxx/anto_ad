@@ -21,6 +21,19 @@ $(document).ready(function(){
 	$(".datepicker").datetimepicker({format:'yyyy-mm-dd',weekStart:1,todayBtn:1,autoclose:1,startView:2,forceParse:0,showMeridian:1,minView:2,language:'zh-CN'});
 });
 
+//日期报警
+function day_warning(){
+	//结束日期报警
+	$(".end_time").each(function(){
+		var ss = $(this).text();
+		ss=new Date(ss.replace("-", "/").replace("-", "/")); 
+		var today = new Date();
+		if(ss<today){  
+        	$(this).css({color:"red"})  
+    	}  
+	})
+}
+
 //选择赋值
 function site_select(){
 	$("#site_select a").each(function(){
@@ -43,10 +56,11 @@ function show_list(e){
 			$("#list_table").empty();
 			var html = "";
 			$.each(data,function(index,json){
-				html += '<tr"><td>'+json.site_name+'</td><td>'+json.ad_name+'</td><td>'+json.start_time+'</td><td>'+json.end_time+'</td><td>'+json.url+'</td><td>'+json.pic+'</td><td>'+json.desc_info+'</td><td>'+json.others+'</td><td>修改</td></tr>';
+				html += '<tr"><td>'+json.site_name+'</td><td>'+json.ad_name+'</td><td>'+json.start_time+'</td><td class="end_time">'+json.end_time+'</td><td>'+json.url+'</td><td>'+json.pic+'</td><td>'+json.desc_info+'</td><td>'+json.others+'</td><td><a class="btn btn-xs btn-primary" onclick="change_ad(\''+json.id+'\')">修 改</a> &nbsp;<a class="btn btn-xs btn-danger" onclick="remove_ad(\''+json.id+'\')">删 除</a></td></tr>';
 			})
 			html = '<tr class="info"><td>站点名称</td><td>广告名称</td><td>开始时间</td><td>结束时间</td><td>产品链接</td><td>图片链接</td><td>详情描述</td><td>备注其他</td><td>操作</td></tr>'+html;
 			$("#list_table").html(html);
+			day_warning();
 		}
     })
 }
@@ -235,7 +249,7 @@ function change_pwd(){
 						<!--站点选择-->
 						<li class="dropdown hover_bg" onclick="show_site()" id="site_select">
 							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-								<span id="site_select_txt">全部站点</span>
+								<span id="site_select_txt">选择站点</span>
 								<span class="caret"></span>
 							</a>
 							<ul id="show_site" class="dropdown-menu" >
