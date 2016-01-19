@@ -19,10 +19,42 @@
 		return false;
 	}
 
+//广告展示
+	if(isset($_POST['show_list'])){
+		$now_site = $_POST['show_list'];
+		if($now_site == 1){ //全部站点
+			$sql = "select * from ad_table;";
+		}else{
+			$sql = "select * from ad_table where site_name='{$now_site}';";
+		}
+		$res = $db->execute($sql);
+		echo json_encode($res);
+		return false;
+	}
+
+//新建广告位
+	if(isset($_POST['ad_name'])){
+		$site_name = $_POST['site_name'];
+		$ad_name = $_POST['ad_name'];
+		$start_time = $_POST['start_time'];
+		$end_time = $_POST['end_time'];
+		$url = $_POST['url'];
+		$pic = $_POST['pic'];
+		$desc = $_POST['desc'];
+		$others = $_POST['others'];
+		$sql = "insert into ad_table(site_name,ad_name,start_time,end_time,url,pic,desc_info,others)values('{$site_name}','{$ad_name}','{$start_time}','{$end_time}','{$url}','{$pic}','{$desc}','{$others}');";
+		$res = $db->execute($sql);
+		echo "ok";
+		return false;
+	}
+
 //查询站点
-	$sql = "select * from ad_store;";
-	$res = $db->execute($sql);
-	$smarty->assign("resu_store",$res);
+	if(isset($_POST['show_sitemanage'])){
+		$sql = "select * from ad_store;";
+		$res = $db->execute($sql);
+		echo json_encode($res);
+		return false;
+	}
 
 //新建站点
 	if(isset($_POST['new_site'])){

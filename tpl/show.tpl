@@ -15,7 +15,9 @@
 	{literal}
 	<script>
 $(document).ready(function(){
-	site_select()
+	//默认展示第一页
+	show_list(1)
+	//格式化日期
 	$(".datepicker").datetimepicker({format:'yyyy-mm-dd',weekStart:1,todayBtn:1,autoclose:1,startView:2,forceParse:0,showMeridian:1,minView:2,language:'zh-CN'});
 });
 
@@ -24,9 +26,90 @@ function site_select(){
 	$("#site_select a").each(function(){
 		$(this).click(function(){
 			var msg = $(this).text();
-			$("#site_select_txt").html(msg)
+			$("#site_select_txt").text(msg)
+			$("#add_site_name").val(msg);
 		})
 	})
+}
+
+//展示列表
+function show_list(e){
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"show_list="+e,
+        dataType:"json",
+        success:function(data){
+			$("#list_table").empty();
+			var html = "";
+			$.each(data,function(index,json){
+				html += '<tr"><td>'+json.site_name+'</td><td>'+json.ad_name+'</td><td>'+json.start_time+'</td><td>'+json.end_time+'</td><td>'+json.url+'</td><td>'+json.pic+'</td><td>'+json.desc_info+'</td><td>'+json.others+'</td><td>修改</td></tr>';
+			})
+			html = '<tr class="info"><td>站点名称</td><td>广告名称</td><td>开始时间</td><td>结束时间</td><td>产品链接</td><td>图片链接</td><td>详情描述</td><td>备注其他</td><td>操作</td></tr>'+html;
+			$("#list_table").html(html);
+		}
+    })
+}
+
+//添加广告
+function add_ad(){
+	var add_info = $("#add_box input").serialize();
+	var add_site_name = $("#add_site_name").val();
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:add_info,
+        success:function(data){
+			if(data=="ok"){
+				$('#error_info').text('广告添加成功！');
+				$('#errorModal').modal('show');
+			    setTimeout(function(){
+			    	$('#errorModal').modal('hide');
+			    },2000)
+			    $('.bs-example-modal-lg2').modal('hide');
+			    show_list(add_site_name)
+			}
+		}
+    })
+}
+
+//站点展示
+function show_site(){
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"show_sitemanage=1",
+        dataType:"json",
+        success:function(data){
+			$("#show_site").empty();
+			var html = "";
+			$.each(data,function(index,json){
+				html += '<li class="pointer" onclick="show_list(\''+json.ad_site+'\')"><a>'+json.ad_site+'</a></li>';
+			})
+			html = '<li class="pointer" onclick="show_list(1)"><a>全部站点</a></li>'+html;
+			$("#show_site").html(html);
+			site_select();
+		}
+    })
+}
+
+//站点调用
+function show_sitemanage(){
+	$.ajax({
+        type:"POST",
+        url:"show.php",
+        data:"show_sitemanage=1",
+        dataType:"json",
+        success:function(data){
+			$("#site_manage").empty();
+			var html = "";
+			$.each(data,function(index,json){
+				html += '<tr><td width="70%" style="font-size:14px;">'+json.ad_site+'</td><td><a class="btn btn-xs btn-danger" onclick="remove_site(\''+json.ad_site+'\')">删 除</a></td></tr>';
+			})
+			html = '<tr class="danger"><td width="70%">店名</td><td>操作</td></tr>'+html;
+			$("#site_manage").html(html);
+		}
+    })
 }
 
 //新建站点
@@ -44,6 +127,7 @@ function add_site(){
 			    	$('#errorModal').modal('hide');
 			    },2000)
 			    $('#pwd_modal').modal('hide');
+			    show_sitemanage();
 			}
         },
         error: function(){
@@ -52,6 +136,7 @@ function add_site(){
         }
     })
 }
+
 //删除站点
 function remove_site(e){
 	$.ajax({
@@ -66,6 +151,7 @@ function remove_site(e){
 			    	$('#errorModal').modal('hide');
 			    },2000)
 			    $('#pwd_modal').modal('hide');
+			    show_sitemanage();
 			}
         },
         error: function(){
@@ -74,6 +160,7 @@ function remove_site(e){
         }
     })
 }
+
 //修改密码
 function change_pwd(){
 	var input_info = $("#change_pwd input").serialize();
@@ -138,28 +225,21 @@ function change_pwd(){
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<!--任务添加-->
+						<li onclick="show_sitemanage()" class="pointer hover_bg" data-toggle="modal" data-target=".bs-example-modal-lg">
+							<a>站点管理</a>
+						</li>
 						<li class="ml10 pointer hover_bg" data-toggle="modal" data-target=".bs-example-modal-lg2">
 							<a>添加广告</a>
 						</li>
 						<!--/任务添加-->
 						<!--站点选择-->
-						<li class="dropdown hover_bg" id="site_select" style="margin-left:20px;">
-							<a class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-								<span id="site_select_txt" >全部站点</span>
+						<li class="dropdown hover_bg" onclick="show_site()" id="site_select">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<span id="site_select_txt">全部站点</span>
 								<span class="caret"></span>
 							</a>
-							<ul class="dropdown-menu">
-								<li class="pointer">
-									<a>全部站点</a>
-								</li>
-								<li class="pointer">
-									<a>YAHOO GTX</a>
-								</li>
-								<li class="pointer">
-									<a>RAKUTEN IGTX</a>
-								</li>
+							<ul id="show_site" class="dropdown-menu" >
 								<li role="separator" class="divider"></li>
-								<li class="pointer" data-toggle="modal" data-target=".bs-example-modal-lg" style="padding-left:20px;">站点管理</li>
 							</ul>
 						</li>
 						<!--/站点选择-->
@@ -185,47 +265,7 @@ function change_pwd(){
 				</div>
 				<!-- /.navbar-collapse -->
 			</nav>
-			<table class="table table-bordered table-striped table-condensed" style="width:94%;margin:40px 0 40px 40px;">
-					<tr class="info">
-						<td>广告名称</td>
-						<td>开始时间</td>
-						<td>结束时间</td>
-						<td>详情描述</td>
-						<td>备注其他</td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>yahoo gtx</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr><tr>
-						<td>yahoo gtx</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr><tr>
-						<td>yahoo gtx</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr><tr>
-						<td>yahoo gtx</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</table>
+			<table id="list_table" class="table table-bordered table-striped table-condensed" style="width:94%;margin:40px 0 40px 40px;"></table>
 		</div>
 		<!-- /.container-fluid -->
 	</div>
@@ -246,25 +286,13 @@ function change_pwd(){
 					</span>
 				</div>
 				<div class="clearfix"></div>
-				<table class="table table-bordered table-striped mt20 table-condensed" style="margin-right:10px;">
-					<tr class="danger">
-						<td>店名</td>
-						<td>操作</td>
-					</tr>
-					{foreach $resu_store|default:'-' as $se}
-					<tr>
-						<td>{$se.ad_site|default:'-'}</td>
-						<td>
-							<a class="btn btn-xs btn-danger" onclick="remove_site('{$se.ad_site}')">删 除</a>
-						</td>
-					</tr>
-					{/foreach}
+				<table id="site_manage" class="table table-bordered table-striped mt20 table-condensed" style="margin-right:10px;">
 				</table>
 			</div>
 		</div>
 	</div>
 	<!--/站点管理弹框-->
-	<!--添加任务弹框-->
+	<!--添加广告弹框-->
 	<div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
@@ -274,33 +302,33 @@ function change_pwd(){
 				<div class="page-header">
 					<small>添加广告</small>
 				</div>
-				<div class="auto" style="width:370px;margin-bottom:30px;">
+				<div id="add_box" class="auto" style="width:370px;margin-bottom:30px;">
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">站点名称</span>
-						<input type="text" class="form-control" placeholder="Site" aria-describedby="basic-addon1"></div>
+						<input name="site_name" id="add_site_name" readonly type="text" class="form-control" placeholder="Site" aria-describedby="basic-addon1" value="全部站点"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">广告名称</span>
-						<input type="text" class="form-control" placeholder="Ad Name" aria-describedby="basic-addon1"></div>
+						<input name="ad_name" type="text" class="form-control" placeholder="Ad Name" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">开始时间</span>
-						<input type="text" readonly class="form-control datepicker" placeholder="Start Time" aria-describedby="basic-addon1"></div>
+						<input name="start_time" type="text" readonly class="form-control datepicker" placeholder="Start Time" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">结束时间</span>
-						<input type="text" readonly class="form-control datepicker" placeholder="End Time" aria-describedby="basic-addon1"></div>
+						<input name="end_time" type="text" readonly class="form-control datepicker" placeholder="End Time" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">产品链接</span>
-						<input type="text" class="form-control" placeholder="Product URL" aria-describedby="basic-addon1"></div>
+						<input name="url" type="text" class="form-control" placeholder="Product URL" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">图片链接</span>
-						<input type="text" class="form-control" placeholder="Picture URL" aria-describedby="basic-addon1"></div>
+						<input name="pic" type="text" class="form-control" placeholder="Picture URL" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">详情描述</span>
-						<input type="text" class="form-control" placeholder="To Describe" aria-describedby="basic-addon1"></div>
+						<input name="desc" type="text" class="form-control" placeholder="To Describe" aria-describedby="basic-addon1"></div>
 					<div class="input-group mt10">
 						<span class="input-group-addon" id="basic-addon1">备注其他</span>
-						<input type="text" class="form-control" placeholder="Others" aria-describedby="basic-addon1"></div>
+						<input name="others" type="text" class="form-control" placeholder="Others" aria-describedby="basic-addon1"></div>
 					<div style="margin-top:30px;">
-						<a class="btn btn-primary" href="#" role="button">
+						<a onclick="add_ad()" class="btn btn-primary" href="#" role="button">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;添&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</a>
 					</div>
