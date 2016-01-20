@@ -116,5 +116,9 @@ td{
 	position: fixed;
 	bottom:1px;
 	z-index: 101;
-	background: #ddd;
+	text-align: center;
+}
+#img_pic_box{
+	height: 100%;
+
 }
