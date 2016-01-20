@@ -50,7 +50,7 @@ function login_ok(){
 <div class="container-fluid">
   <div class="row">
     <nav class="navbar navbar-default">
-  		<div style="line-height:50px;font-size:21px;" class="ml10">ANTO-广告排期系统</div>
+      <div style="line-height:50px;font-size:18px;margin-left:15px;"><span class="glyphicon glyphicon-screenshot"></span> ANTO -广告排期系统</div>
     </nav>
   </div>
   <div class="row" style="margin-top:200px;" id="login_box">
@@ -70,7 +70,7 @@ function login_ok(){
   </div>
   <div class="row">
     <nav class="navbar navbar-default navbar-fixed-bottom" style="background:#eee;">
-  		<div style="line-height:50px;font-size:14px;" class="mr10 pull-right">Powered by ycmbcd & pd</div>
+    <div style="line-height:50px;font-size:20px;font-style:italic;margin-right:20px;" class="pull-right"><span class="glyphicon glyphicon-education"></span> Powered by ycmbcd & pd</div>
     </nav>
   </div>
 </div>

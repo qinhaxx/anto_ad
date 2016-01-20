@@ -63,6 +63,32 @@
 		return false;
 	}
 
+//修改广告弹窗
+	if(isset($_POST['change_box'])){
+		$id = $_POST['change_box'];
+		$sql = "select * from ad_table where id='{$id}';";
+		$res = $db->execute($sql);
+		echo json_encode($res);
+		return false;
+	}
+
+//修改广告
+	if(isset($_POST['cg_ad_name'])){
+		$id = $_POST['id'];
+		$site_name = $_POST['site_name'];
+		$ad_name = $_POST['cg_ad_name'];
+		$start_time = $_POST['start_time'];
+		$end_time = $_POST['end_time'];
+		$url = $_POST['url'];
+		$pic = $_POST['pic'];
+		$desc = $_POST['desc'];
+		$others = $_POST['others'];
+		$sql = "UPDATE ad_table SET site_name='{$site_name}',ad_name='{$ad_name}',start_time='{$start_time}',end_time='{$end_time}',url='{$url}',pic='{$pic}',desc_info='{$desc}',others='{$others}' where id='{$id}';";
+		$res = $db->execute($sql);
+		echo "ok";
+		return false;
+	}
+
 //删除广告
 	if(isset($_POST['remove_ad'])){
 		$remove_ad = $_POST['remove_ad'];
