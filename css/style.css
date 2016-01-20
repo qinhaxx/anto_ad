@@ -96,7 +96,7 @@ td{
 	background: #F9EBE1;
 	margin:0 auto;
 	margin-top: 80px;
-	margin-bottom: 120px;
+	margin-bottom: 300px;
 }
 #list_table td{
 	font-size: 14px;
@@ -114,11 +114,28 @@ td{
 	width:100%;
 	height: 200px;
 	position: fixed;
-	bottom:1px;
+	bottom:20px;
 	z-index: 101;
 	text-align: center;
+	display: none;
+	pointer-events:none;
 }
 #img_pic_box{
 	height: 100%;
-
+	margin-top: 5px;
+	margin-right: -11px;
+}
+.thumbnail {
+     display: inline;
+}
+#pic_btn{
+	width: 20px;
+	height: 20px;
+	background: none;
+	position: fixed;
+	border: none;
+    font-size: 28px;
+    color: #000;
+    opacity: 0.7;
+    pointer-events:auto;
 }

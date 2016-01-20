@@ -18,7 +18,7 @@ $(document).ready(function(){
         login_ok(); 
        }  
   });
-});
+})
 function login_ok(){
 	var msg = $("#login_box input").serialize();
 	

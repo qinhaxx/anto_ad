@@ -23,7 +23,16 @@ $(document).ready(function(){
 
 //pic展示
 function pic_show(e){
-	$("#img_pic_box").attr("src",e)
+	$("#pic_box").fadeOut(500,function(){
+		if(e==""){
+			$("#img_pic_box").attr("src","./images/working.gif");
+			$("#pic_box").fadeIn(500);
+		}else{
+			$("#img_pic_box").attr("src",e);
+			$("#pic_box").fadeIn(500);
+		}
+	});
+	
 }
 
 //日期报警
@@ -321,7 +330,10 @@ function change_pwd(){
 
 <body style="margin-top:40px;">
 <div id="pic_box">
-	<img id="img_pic_box" src="" />
+	<img  class="thumbnail" id="img_pic_box" src="" />
+	<button id="pic_btn" class="pull-left" >
+		<span class="glyphicon glyphicon-remove-circle" onclick="$('#pic_box').fadeOut(500)"></span>
+	</button>
 </div>
 	<div class="container-fluid">
 		<div class="row">
