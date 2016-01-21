@@ -2,7 +2,7 @@
 	class DB{
 	public $conne;
 	//使用构造函数去连接数据库
-	public function __construct($localhost='192.168.0.6',$user='root',$password='',$dbname='anto_ad'){
+	public function __construct($localhost='localhost',$user='root',$password='ycmbcd',$dbname='anto_ad'){
 @		$this->conne=mysql_connect($localhost,$user,$password);
 
 mysql_query("SET NAMES UTF8");

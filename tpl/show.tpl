@@ -70,12 +70,21 @@ function show_list(e){
 			$("#list_table").empty();
 			var html = "";
 			$.each(data,function(index,json){
-				html += '<tr class="my_hover"><td style="width:120px;">'+json.site_name+'</td><td style="width:140px;">'+json.ad_name+'</td><td style="width:100px;">'+json.start_time+'</td><td class="end_time" style="width:100px;">'+json.end_time+'</td><td style="width:80px;"><a href="'+json.url+'" target="_blank"><span class="glyphicon glyphicon-flash"></span></a></td><td onclick="pic_show(\''+json.pic+'\')" style="width:80px;"><span class="glyphicon glyphicon-picture"></span></td><td style="width:280px;">'+json.desc_info+'</td><td style="width:100px;">'+json.others+'</td><td style="width:106px;"><a class="btn btn-xs btn-primary" onclick="change_box(\''+json.id+'\')" data-toggle="modal" data-target=".change_ad">修 改</a> <a class="btn btn-xs btn-danger pull-right" onclick="remove_ad(\''+json.id+'\')">删 除</a></td></tr>';
+				html += '<tr class="my_hover"><td style="width:120px;">'+json.site_name+'</td><td style="width:140px;">'+json.ad_name+'</td><td style="width:100px;">'+json.start_time+'</td><td class="end_time" style="width:100px;">'+json.end_time+'</td><td style="width:80px;"><a href="'+json.url+'" target="_blank"><span class="glyphicon glyphicon-flash"></span></a></td><td onclick="pic_show(\''+json.pic+'\')" style="width:80px;"><span class="glyphicon glyphicon-picture"></span></td><td style="width:280px;">'+json.desc_info+'</td><td style="width:100px;">'+json.others+'</td><td class="td_option" style="width:106px;"><a class="btn btn-xs btn-primary" onclick="change_box(\''+json.id+'\')" data-toggle="modal" data-target=".change_ad">修 改</a> <a class="btn btn-xs btn-danger pull-right" onclick="remove_ad(\''+json.id+'\')">删 除</a></td></tr>';
 			})
 			html = '<tr class="my_bar"><td style="width:120px;">站点名称</td><td style="width:140px;">广告名称</td><td style="width:100px;">开始时间</td><td style="width:100px;">结束时间</td><td style="width:80px;">产品链接</td><td style="width:80px;">预览</td><td style="width:280px;">详情描述</td><td style="width:100px;">备注其他</td><td style="width:106px;">操作</td></tr>'+html;
 			$("#list_table").html(html);
 			day_warning();
 			all_count(e);
+			//
+			$(".td_option").each(function(){
+				$(this).append("<div class='td_shadow'></div>");
+				$(this).hover(function(){
+					$(this).find(".td_shadow").hide();
+				},function(){
+					$(this).append("<div class='td_shadow'></div>");
+				})
+			})
 		}
     })
 }
